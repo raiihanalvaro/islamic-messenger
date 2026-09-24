@@ -32,6 +32,8 @@ button{
   display:none!important
 }
 
+/* ================= AUTH ================= */
+
 #authPage{
   height:100vh;
   display:flex;
@@ -89,6 +91,8 @@ button{
   color:#075e54;
   cursor:pointer
 }
+
+/* ================= APP ================= */
 
 #app{
   height:100vh;
@@ -339,6 +343,8 @@ button{
   font-size:20px
 }
 
+/* ================= PROFILE ================= */
+
 .profilePanel{
   position:fixed;
   inset:0;
@@ -383,10 +389,12 @@ button{
   background:#777!important
 }
 
+/* ================= CALL SCREEN ================= */
+
 #callModal{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.88);
+  background:#000;
   z-index:50;
   color:white;
   display:flex;
@@ -394,12 +402,20 @@ button{
 }
 
 .callTop{
-  height:70px;
+  min-height:70px;
   display:flex;
+  flex-direction:column;
   align-items:center;
   justify-content:center;
   font-weight:bold;
-  font-size:18px
+  font-size:18px;
+  padding:10px
+}
+
+#callTimer{
+  font-size:12px;
+  color:#bbb;
+  margin-top:4px
 }
 
 .videos{
@@ -408,7 +424,8 @@ button{
   display:flex;
   justify-content:center;
   align-items:center;
-  overflow:hidden
+  overflow:hidden;
+  background:#080808
 }
 
 #remoteVideo{
@@ -427,7 +444,8 @@ button{
   object-fit:cover;
   background:#222;
   border-radius:12px;
-  border:2px solid white
+  border:2px solid white;
+  z-index:2
 }
 
 .audioAvatar{
@@ -442,7 +460,7 @@ button{
 }
 
 .callBottom{
-  min-height:100px;
+  min-height:105px;
   display:flex;
   justify-content:center;
   align-items:center;
@@ -463,10 +481,12 @@ button{
   color:white
 }
 
+/* ================= INCOMING ================= */
+
 .incoming{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.85);
+  background:rgba(0,0,0,.90);
   z-index:60;
   color:white;
   display:flex;
@@ -512,6 +532,8 @@ button{
   color:white
 }
 
+/* ================= TOAST ================= */
+
 .toast{
   position:fixed;
   left:50%;
@@ -522,12 +544,12 @@ button{
   padding:12px 18px;
   border-radius:20px;
   z-index:100;
-  display:none
+  display:none;
+  max-width:90%;
+  text-align:center
 }
 
-.dark body{
-  background:#111
-}
+/* ================= DARK MODE ================= */
 
 body.dark{
   background:#111;
@@ -575,6 +597,8 @@ body.dark .chatHeader{
   border-color:#344047
 }
 
+/* ================= MOBILE ================= */
+
 @media(max-width:700px){
 
   .sidebar{
@@ -600,18 +624,48 @@ body.dark .chatHeader{
   .message{
     max-width:85%
   }
+
+  #localVideo{
+    width:105px;
+    height:150px;
+    right:10px;
+    top:10px
+  }
+
+  .callBottom{
+    gap:12px
+  }
+
+  .callBottom button{
+    width:52px;
+    height:52px
+  }
+
+}
+
+/* ================= CALL STATES ================= */
+
+.callConnecting{
+  color:#aaa
+}
+
+.callConnected{
+  color:#25d366
 }
 </style>
 </head>
 
 <body>
 
-<!-- LOGIN -->
+<!-- ================= LOGIN ================= -->
+
 <div id="authPage">
 
   <div class="authBox">
 
-    <div class="logo">☪ Islamic Messenger</div>
+    <div class="logo">
+      ☪ Islamic Messenger
+    </div>
 
     <div class="subtitle">
       Messenger sederhana untuk komunikasi
@@ -635,13 +689,19 @@ body.dark .chatHeader{
         Masuk
       </button>
 
-      <div class="switchAuth" onclick="showRegister()">
+      <div
+        class="switchAuth"
+        onclick="showRegister()"
+      >
         Belum punya akun? Daftar
       </div>
 
     </div>
 
-    <div id="registerForm" class="hidden">
+    <div
+      id="registerForm"
+      class="hidden"
+    >
 
       <input
         id="registerName"
@@ -665,7 +725,10 @@ body.dark .chatHeader{
         Daftar
       </button>
 
-      <div class="switchAuth" onclick="showLogin()">
+      <div
+        class="switchAuth"
+        onclick="showLogin()"
+      >
         Sudah punya akun? Masuk
       </div>
 
@@ -676,14 +739,20 @@ body.dark .chatHeader{
 </div>
 
 
-<!-- APP -->
-<div id="app" class="hidden">
+<!-- ================= APP ================= -->
+
+<div
+  id="app"
+  class="hidden"
+>
 
   <div class="sidebar">
 
     <div class="sideHeader">
 
-      <strong>Islamic Messenger</strong>
+      <strong>
+        Islamic Messenger
+      </strong>
 
       <div class="headerButtons">
 
@@ -714,7 +783,10 @@ body.dark .chatHeader{
 
     </div>
 
-    <div id="usersList" class="users"></div>
+    <div
+      id="usersList"
+      class="users"
+    ></div>
 
   </div>
 
@@ -730,7 +802,10 @@ body.dark .chatHeader{
         ‹
       </button>
 
-      <div class="avatar" id="chatAvatar">
+      <div
+        class="avatar"
+        id="chatAvatar"
+      >
         ?
       </div>
 
@@ -808,7 +883,8 @@ body.dark .chatHeader{
 </div>
 
 
-<!-- PROFILE -->
+<!-- ================= PROFILE ================= -->
+
 <div
   id="profilePanel"
   class="profilePanel hidden"
@@ -816,7 +892,9 @@ body.dark .chatHeader{
 
   <div class="profileBox">
 
-    <h3>Profil Saya</h3>
+    <h3>
+      Profil Saya
+    </h3>
 
     <input
       id="profileName"
@@ -839,7 +917,8 @@ body.dark .chatHeader{
 </div>
 
 
-<!-- CALL -->
+<!-- ================= CALL ================= -->
+
 <div
   id="callModal"
   class="hidden"
@@ -849,6 +928,10 @@ body.dark .chatHeader{
 
     <span id="callTitle">
       Panggilan
+    </span>
+
+    <span id="callTimer">
+      00:00
     </span>
 
   </div>
@@ -882,6 +965,7 @@ body.dark .chatHeader{
     <button
       id="muteButton"
       onclick="toggleMute()"
+      title="Mute"
     >
       🎤
     </button>
@@ -889,12 +973,14 @@ body.dark .chatHeader{
     <button
       id="cameraButton"
       onclick="toggleCamera()"
+      title="Kamera"
     >
       📷
     </button>
 
     <button
       onclick="switchCamera()"
+      title="Ganti kamera"
     >
       🔄
     </button>
@@ -902,6 +988,7 @@ body.dark .chatHeader{
     <button
       class="endCall"
       onclick="endCall()"
+      title="Akhiri panggilan"
     >
       📞
     </button>
@@ -911,7 +998,8 @@ body.dark .chatHeader{
 </div>
 
 
-<!-- INCOMING CALL -->
+<!-- ================= INCOMING CALL ================= -->
+
 <div
   id="incomingCall"
   class="incoming hidden"
@@ -934,6 +1022,7 @@ body.dark .chatHeader{
     <button
       class="reject"
       onclick="rejectIncoming()"
+      title="Tolak"
     >
       ✕
     </button>
@@ -941,6 +1030,7 @@ body.dark .chatHeader{
     <button
       class="accept"
       onclick="acceptIncoming()"
+      title="Terima"
     >
       ✓
     </button>
@@ -957,6 +1047,10 @@ body.dark .chatHeader{
 
 
 <script type="module">
+
+/* =========================================================
+   FIREBASE
+========================================================= */
 
 import {
   initializeApp
@@ -980,7 +1074,8 @@ import {
   onValue,
   push,
   onDisconnect,
-  remove
+  remove,
+  onChildAdded
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
 
 
@@ -1020,6 +1115,10 @@ const db =
   getDatabase(appFirebase);
 
 
+/* =========================================================
+   WEBRTC CONFIG
+========================================================= */
+
 const rtcConfig = {
 
   iceServers:[
@@ -1028,11 +1127,18 @@ const rtcConfig = {
     },
     {
       urls:"stun:stun1.l.google.com:19302"
+    },
+    {
+      urls:"stun:stun2.l.google.com:19302"
     }
   ]
 
 };
 
+
+/* =========================================================
+   GLOBAL STATE
+========================================================= */
 
 let currentUser = null;
 let selectedUser = null;
@@ -1046,6 +1152,7 @@ let remoteStream = null;
 
 let callListener = null;
 let candidateListener = null;
+let incomingCallsListener = null;
 
 let incomingCallData = null;
 
@@ -1054,11 +1161,23 @@ let callType = "audio";
 let pendingCallId = null;
 
 let remoteCandidateQueue = [];
+
 let remoteDescriptionSet = false;
 
 let unsubscribeUsers = null;
 let unsubscribeMessages = null;
 
+let processedCandidates = new Set();
+
+let callTimerInterval = null;
+let callStartedAt = null;
+
+let isEndingCall = false;
+
+
+/* =========================================================
+   AUTH UI
+========================================================= */
 
 window.showRegister = function(){
 
@@ -1086,34 +1205,56 @@ window.showLogin = function(){
 };
 
 
+/* =========================================================
+   TOAST
+========================================================= */
+
 function toast(message){
 
   const el =
     document.getElementById("toast");
 
-  el.textContent = message;
-  el.style.display = "block";
+  el.textContent =
+    message;
+
+  el.style.display =
+    "block";
 
   setTimeout(()=>{
-    el.style.display = "none";
-  },3000);
+
+    el.style.display =
+      "none";
+
+  },3500);
 
 }
 
 
+/* =========================================================
+   LOGIN
+========================================================= */
+
 window.login = async function(){
 
   const email =
-    document.getElementById("loginEmail").value.trim();
+    document
+      .getElementById("loginEmail")
+      .value
+      .trim();
 
   const password =
-    document.getElementById("loginPassword").value;
+    document
+      .getElementById("loginPassword")
+      .value;
 
   if(!email || !password){
 
-    toast("Email dan password wajib diisi.");
+    toast(
+      "Email dan password wajib diisi."
+    );
 
     return;
+
   }
 
   try{
@@ -1126,24 +1267,34 @@ window.login = async function(){
 
   }catch(error){
 
-    toast(error.message);
+    console.error(error);
+
+    toast(
+      error.message
+    );
 
   }
 
 };
 
 
+/* =========================================================
+   REGISTER
+========================================================= */
+
 window.register = async function(){
 
   const name =
     document
       .getElementById("registerName")
-      .value.trim();
+      .value
+      .trim();
 
   const email =
     document
       .getElementById("registerEmail")
-      .value.trim();
+      .value
+      .trim();
 
   const password =
     document
@@ -1152,16 +1303,22 @@ window.register = async function(){
 
   if(!name || !email || !password){
 
-    toast("Semua data wajib diisi.");
+    toast(
+      "Semua data wajib diisi."
+    );
 
     return;
+
   }
 
   if(password.length < 6){
 
-    toast("Password minimal 6 karakter.");
+    toast(
+      "Password minimal 6 karakter."
+    );
 
     return;
+
   }
 
   try{
@@ -1196,14 +1353,42 @@ window.register = async function(){
 
   }catch(error){
 
-    toast(error.message);
+    console.error(error);
+
+    toast(
+      error.message
+    );
 
   }
 
 };
 
 
+/* =========================================================
+   LOGOUT
+========================================================= */
+
 window.logout = async function(){
+
+  if(currentCall){
+
+    try{
+
+      await update(
+        ref(
+          db,
+          "calls/" + currentCall
+        ),
+        {
+          status:"ended"
+        }
+      );
+
+    }catch(e){}
+
+    cleanupCall();
+
+  }
 
   if(currentUser){
 
@@ -1212,7 +1397,8 @@ window.logout = async function(){
       await update(
         ref(
           db,
-          "users/" + currentUser.uid
+          "users/" +
+          currentUser.uid
         ),
         {
           online:false,
@@ -1229,13 +1415,18 @@ window.logout = async function(){
 };
 
 
+/* =========================================================
+   AUTH STATE
+========================================================= */
+
 onAuthStateChanged(
   auth,
   async user => {
 
     if(user){
 
-      currentUser = user;
+      currentUser =
+        user;
 
       document
         .getElementById("authPage")
@@ -1251,9 +1442,12 @@ onAuthStateChanged(
 
       listenUsers();
 
+      listenIncomingCalls();
+
     }else{
 
-      currentUser = null;
+      currentUser =
+        null;
 
       document
         .getElementById("authPage")
@@ -1269,12 +1463,17 @@ onAuthStateChanged(
 );
 
 
+/* =========================================================
+   ENSURE USER
+========================================================= */
+
 async function ensureUser(){
 
   const userRef =
     ref(
       db,
-      "users/" + currentUser.uid
+      "users/" +
+      currentUser.uid
     );
 
   const snapshot =
@@ -1310,12 +1509,17 @@ async function ensureUser(){
 }
 
 
+/* =========================================================
+   PRESENCE
+========================================================= */
+
 function setupPresence(){
 
   const userRef =
     ref(
       db,
-      "users/" + currentUser.uid
+      "users/" +
+      currentUser.uid
     );
 
   onDisconnect(userRef)
@@ -1326,6 +1530,10 @@ function setupPresence(){
 
 }
 
+
+/* =========================================================
+   USERS
+========================================================= */
 
 function listenUsers(){
 
@@ -1350,12 +1558,19 @@ function listenUsers(){
 
 window.renderUsers = function(){
 
+  if(!currentUser)
+    return;
+
   const list =
-    document.getElementById("usersList");
+    document.getElementById(
+      "usersList"
+    );
 
   const search =
     document
-      .getElementById("searchInput")
+      .getElementById(
+        "searchInput"
+      )
       .value
       .toLowerCase();
 
@@ -1374,9 +1589,12 @@ window.renderUsers = function(){
     .forEach(user => {
 
       const item =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
 
-      item.className = "userItem";
+      item.className =
+        "userItem";
 
       const first =
         (user.name || "?")
@@ -1386,13 +1604,16 @@ window.renderUsers = function(){
       item.innerHTML = `
 
         <div class="avatar">
-          ${first}
+          ${escapeHtml(first)}
         </div>
 
         <div class="userInfo">
 
           <div class="userName">
-            ${escapeHtml(user.name || "Pengguna")}
+            ${escapeHtml(
+              user.name ||
+              "Pengguna"
+            )}
           </div>
 
           <div class="userStatus">
@@ -1418,6 +1639,10 @@ window.renderUsers = function(){
 };
 
 
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
 function escapeHtml(text){
 
   return String(text)
@@ -1430,9 +1655,14 @@ function escapeHtml(text){
 }
 
 
+/* =========================================================
+   SELECT USER
+========================================================= */
+
 window.selectUser = function(user){
 
-  selectedUser = user;
+  selectedUser =
+    user;
 
   document
     .getElementById("app")
@@ -1441,7 +1671,8 @@ window.selectUser = function(user){
   document
     .getElementById("chatUserName")
     .textContent =
-      user.name || "Pengguna";
+      user.name ||
+      "Pengguna";
 
   document
     .getElementById("chatUserStatus")
@@ -1462,16 +1693,29 @@ window.selectUser = function(user){
 };
 
 
+/* =========================================================
+   CLOSE CHAT
+========================================================= */
+
 window.closeChat = function(){
 
   document
     .getElementById("app")
-    .classList.remove("chatOpen");
+    .classList.remove(
+      "chatOpen"
+    );
 
 };
 
 
+/* =========================================================
+   CONVERSATION ID
+========================================================= */
+
 function conversationId(){
+
+  if(!currentUser || !selectedUser)
+    return "";
 
   return [
     currentUser.uid,
@@ -1482,6 +1726,10 @@ function conversationId(){
 
 }
 
+
+/* =========================================================
+   MESSAGES
+========================================================= */
 
 function listenMessages(){
 
@@ -1494,7 +1742,8 @@ function listenMessages(){
   const messagesRef =
     ref(
       db,
-      "messages/" + conversationId()
+      "messages/" +
+      conversationId()
     );
 
   unsubscribeMessages =
@@ -1505,7 +1754,9 @@ function listenMessages(){
         const messages =
           snapshot.val() || {};
 
-        renderMessages(messages);
+        renderMessages(
+          messages
+        );
 
       }
     );
@@ -1516,7 +1767,9 @@ function listenMessages(){
 function renderMessages(messages){
 
   const box =
-    document.getElementById("messages");
+    document.getElementById(
+      "messages"
+    );
 
   box.innerHTML = "";
 
@@ -1539,37 +1792,44 @@ function renderMessages(messages){
     `;
 
     return;
+
   }
 
   values.forEach(message => {
 
     const div =
-      document.createElement("div");
+      document.createElement(
+        "div"
+      );
 
     div.className =
       "message " +
       (
-        message.senderId === currentUser.uid
+        message.senderId ===
+        currentUser.uid
         ? "me"
         : "them"
       );
 
     const time =
       message.timestamp
-      ? new Date(message.timestamp)
-          .toLocaleTimeString(
-            "id-ID",
-            {
-              hour:"2-digit",
-              minute:"2-digit"
-            }
-          )
+      ? new Date(
+          message.timestamp
+        ).toLocaleTimeString(
+          "id-ID",
+          {
+            hour:"2-digit",
+            minute:"2-digit"
+          }
+        )
       : "";
 
     div.innerHTML = `
 
       <div>
-        ${escapeHtml(message.text || "")}
+        ${escapeHtml(
+          message.text || ""
+        )}
       </div>
 
       <div class="messageTime">
@@ -1577,7 +1837,8 @@ function renderMessages(messages){
         ${time}
 
         ${
-          message.senderId === currentUser.uid
+          message.senderId ===
+          currentUser.uid
           ? '<span class="tick">✓✓</span>'
           : ''
         }
@@ -1596,17 +1857,26 @@ function renderMessages(messages){
 }
 
 
+/* =========================================================
+   SEND MESSAGE
+========================================================= */
+
 window.sendMessage = async function(){
 
   if(!selectedUser){
 
-    toast("Pilih pengguna terlebih dahulu.");
+    toast(
+      "Pilih pengguna terlebih dahulu."
+    );
 
     return;
+
   }
 
   const input =
-    document.getElementById("messageInput");
+    document.getElementById(
+      "messageInput"
+    );
 
   const text =
     input.value.trim();
@@ -1614,42 +1884,67 @@ window.sendMessage = async function(){
   if(!text)
     return;
 
-  const messagesRef =
-    ref(
-      db,
-      "messages/" + conversationId()
+  try{
+
+    const messagesRef =
+      ref(
+        db,
+        "messages/" +
+        conversationId()
+      );
+
+    const newMessage =
+      push(messagesRef);
+
+    await set(
+      newMessage,
+      {
+        senderId:
+          currentUser.uid,
+        receiverId:
+          selectedUser.uid,
+        text:text,
+        timestamp:
+          Date.now(),
+        read:false
+      }
     );
 
-  const newMessage =
-    push(messagesRef);
+    input.value = "";
 
-  await set(
-    newMessage,
-    {
-      senderId:currentUser.uid,
-      receiverId:selectedUser.uid,
-      text:text,
-      timestamp:Date.now(),
-      read:false
-    }
-  );
+  }catch(error){
 
-  input.value = "";
+    console.error(error);
+
+    toast(
+      "Pesan gagal dikirim."
+    );
+
+  }
 
 };
 
 
+/* =========================================================
+   PROFILE
+========================================================= */
+
 window.openProfile = async function(){
 
   document
-    .getElementById("profilePanel")
-    .classList.remove("hidden");
+    .getElementById(
+      "profilePanel"
+    )
+    .classList.remove(
+      "hidden"
+    );
 
   const snapshot =
     await get(
       ref(
         db,
-        "users/" + currentUser.uid
+        "users/" +
+        currentUser.uid
       )
     );
 
@@ -1657,7 +1952,9 @@ window.openProfile = async function(){
     snapshot.val() || {};
 
   document
-    .getElementById("profileName")
+    .getElementById(
+      "profileName"
+    )
     .value =
       data.name ||
       currentUser.displayName ||
@@ -1669,8 +1966,12 @@ window.openProfile = async function(){
 window.closeProfile = function(){
 
   document
-    .getElementById("profilePanel")
-    .classList.add("hidden");
+    .getElementById(
+      "profilePanel"
+    )
+    .classList.add(
+      "hidden"
+    );
 
 };
 
@@ -1679,61 +1980,97 @@ window.saveProfile = async function(){
 
   const name =
     document
-      .getElementById("profileName")
+      .getElementById(
+        "profileName"
+      )
       .value
       .trim();
 
   if(!name){
 
-    toast("Nama tidak boleh kosong.");
+    toast(
+      "Nama tidak boleh kosong."
+    );
 
     return;
+
   }
 
-  await update(
-    ref(
-      db,
-      "users/" + currentUser.uid
-    ),
-    {
-      name:name
-    }
-  );
+  try{
 
-  await updateProfile(
-    currentUser,
-    {
-      displayName:name
-    }
-  );
+    await update(
+      ref(
+        db,
+        "users/" +
+        currentUser.uid
+      ),
+      {
+        name:name
+      }
+    );
 
-  closeProfile();
+    await updateProfile(
+      currentUser,
+      {
+        displayName:name
+      }
+    );
 
-  toast("Profil berhasil disimpan.");
+    closeProfile();
+
+    toast(
+      "Profil berhasil disimpan."
+    );
+
+  }catch(error){
+
+    toast(
+      "Profil gagal disimpan."
+    );
+
+  }
 
 };
 
+
+/* =========================================================
+   DARK MODE
+========================================================= */
 
 window.toggleDark = function(){
 
-  document.body.classList.toggle("dark");
+  document.body.classList.toggle(
+    "dark"
+  );
 
   localStorage.setItem(
     "islamicDark",
-    document.body.classList.contains("dark")
-      ? "1"
-      : "0"
+    document.body.classList.contains(
+      "dark"
+    )
+    ? "1"
+    : "0"
   );
 
 };
 
 
-if(localStorage.getItem("islamicDark") === "1"){
+if(
+  localStorage.getItem(
+    "islamicDark"
+  ) === "1"
+){
 
-  document.body.classList.add("dark");
+  document.body.classList.add(
+    "dark"
+  );
 
 }
 
+
+/* =========================================================
+   MEDIA
+========================================================= */
 
 async function prepareLocalMedia(type){
 
@@ -1758,7 +2095,11 @@ async function prepareLocalMedia(type){
 
   const constraints = {
 
-    audio:true,
+    audio:{
+      echoCancellation:true,
+      noiseSuppression:true,
+      autoGainControl:true
+    },
 
     video:
       type === "video"
@@ -1777,10 +2118,14 @@ async function prepareLocalMedia(type){
 
   localStream =
     await navigator.mediaDevices
-      .getUserMedia(constraints);
+      .getUserMedia(
+        constraints
+      );
 
   const localVideo =
-    document.getElementById("localVideo");
+    document.getElementById(
+      "localVideo"
+    );
 
   localVideo.srcObject =
     localStream;
@@ -1790,8 +2135,26 @@ async function prepareLocalMedia(type){
     ? "block"
     : "none";
 
+  document
+    .getElementById(
+      "muteButton"
+    )
+    .textContent =
+      "🎤";
+
+  document
+    .getElementById(
+      "cameraButton"
+    )
+    .textContent =
+      "📷";
+
 }
 
+
+/* =========================================================
+   CREATE PEER CONNECTION
+========================================================= */
 
 function createPeerConnection(){
 
@@ -1804,7 +2167,9 @@ function createPeerConnection(){
     new MediaStream();
 
   const remoteVideo =
-    document.getElementById("remoteVideo");
+    document.getElementById(
+      "remoteVideo"
+    );
 
   remoteVideo.srcObject =
     remoteStream;
@@ -1824,86 +2189,329 @@ function createPeerConnection(){
 
   }
 
+
+  /* REMOTE TRACK */
+
   peerConnection.ontrack =
     event => {
 
-      event.streams[0]
-        .getTracks()
-        .forEach(track => {
+      const streams =
+        event.streams;
 
-          remoteStream.addTrack(track);
+      if(
+        streams &&
+        streams[0]
+      ){
 
-        });
+        streams[0]
+          .getTracks()
+          .forEach(track => {
+
+            const alreadyExists =
+              remoteStream
+                .getTracks()
+                .some(
+                  t =>
+                    t.id === track.id
+                );
+
+            if(!alreadyExists){
+
+              remoteStream.addTrack(
+                track
+              );
+
+            }
+
+          });
+
+      }else{
+
+        if(
+          !remoteStream
+            .getTracks()
+            .some(
+              t =>
+                t.id === event.track.id
+            )
+        ){
+
+          remoteStream.addTrack(
+            event.track
+          );
+
+        }
+
+      }
+
+      remoteVideo.play()
+        .catch(()=>{});
 
     };
+
+
+  /* ICE CANDIDATE */
 
   peerConnection.onicecandidate =
     async event => {
 
       if(
         !event.candidate ||
-        !currentCall
+        !currentCall ||
+        !currentUser
       )
         return;
 
-      const candidateRef =
-        push(
-          ref(
-            db,
-            "calls/" +
-            currentCall +
-            "/candidates/" +
-            currentUser.uid
-          )
+      try{
+
+        const candidateRef =
+          push(
+            ref(
+              db,
+              "calls/" +
+              currentCall +
+              "/candidates/" +
+              currentUser.uid
+            )
+          );
+
+        await set(
+          candidateRef,
+          event.candidate.toJSON()
         );
 
-      await set(
-        candidateRef,
-        event.candidate.toJSON()
-      );
+      }catch(error){
+
+        console.error(
+          "ICE candidate error:",
+          error
+        );
+
+      }
 
     };
 
-  peerConnection.onconnectionstatechange =
+
+  /* CONNECTION STATE */
+
+  peerConnection
+    .onconnectionstatechange =
     () => {
 
       if(!peerConnection)
         return;
 
       const state =
-        peerConnection.connectionState;
+        peerConnection
+          .connectionState;
+
+      console.log(
+        "WebRTC connection:",
+        state
+      );
 
       if(state === "connected"){
 
-        document
-          .getElementById("callTitle")
-          .textContent =
-            "Terhubung";
+        setCallTitle(
+          "Terhubung",
+          true
+        );
+
+        startCallTimer();
 
       }
 
-      if(
-        state === "failed" ||
-        state === "disconnected" ||
-        state === "closed"
-      ){
+      if(state === "connecting"){
 
-        document
-          .getElementById("callTitle")
-          .textContent =
-            "Panggilan terputus";
+        setCallTitle(
+          "Menghubungkan...",
+          false
+        );
 
       }
+
+      if(state === "failed"){
+
+        setCallTitle(
+          "Koneksi gagal",
+          false
+        );
+
+        toast(
+          "Koneksi panggilan gagal."
+        );
+
+      }
+
+      if(state === "disconnected"){
+
+        setCallTitle(
+          "Koneksi terputus",
+          false
+        );
+
+      }
+
+      if(state === "closed"){
+
+        stopCallTimer();
+
+      }
+
+    };
+
+
+  peerConnection.oniceconnectionstatechange =
+    () => {
+
+      if(!peerConnection)
+        return;
+
+      console.log(
+        "ICE:",
+        peerConnection
+          .iceConnectionState
+      );
 
     };
 
 }
 
 
-async function listenCandidates(callId, remoteUid){
+/* =========================================================
+   CALL TITLE
+========================================================= */
 
-  if(candidateListener)
+function setCallTitle(
+  title,
+  connected
+){
+
+  const el =
+    document.getElementById(
+      "callTitle"
+    );
+
+  el.textContent =
+    title;
+
+  el.classList.toggle(
+    "callConnected",
+    connected
+  );
+
+  el.classList.toggle(
+    "callConnecting",
+    !connected
+  );
+
+}
+
+
+/* =========================================================
+   CALL TIMER
+========================================================= */
+
+function startCallTimer(){
+
+  if(callTimerInterval)
+    return;
+
+  callStartedAt =
+    Date.now();
+
+  updateCallTimer();
+
+  callTimerInterval =
+    setInterval(
+      updateCallTimer,
+      1000
+    );
+
+}
+
+
+function updateCallTimer(){
+
+  if(!callStartedAt)
+    return;
+
+  const seconds =
+    Math.floor(
+      (Date.now() -
+       callStartedAt) /
+      1000
+    );
+
+  const minutes =
+    Math.floor(
+      seconds / 60
+    );
+
+  const secs =
+    seconds % 60;
+
+  document
+    .getElementById(
+      "callTimer"
+    )
+    .textContent =
+      String(minutes)
+        .padStart(2,"0") +
+      ":" +
+      String(secs)
+        .padStart(2,"0");
+
+}
+
+
+function stopCallTimer(){
+
+  if(callTimerInterval){
+
+    clearInterval(
+      callTimerInterval
+    );
+
+    callTimerInterval =
+      null;
+
+  }
+
+  callStartedAt =
+    null;
+
+  document
+    .getElementById(
+      "callTimer"
+    )
+    .textContent =
+      "00:00";
+
+}
+
+
+/* =========================================================
+   LISTEN ICE CANDIDATES
+========================================================= */
+
+function listenCandidates(
+  callId,
+  remoteUid
+){
+
+  if(candidateListener){
+
     candidateListener();
+    candidateListener = null;
+
+  }
+
+  processedCandidates =
+    new Set();
+
+  remoteCandidateQueue =
+    [];
 
   const candidatesRef =
     ref(
@@ -1915,41 +2523,60 @@ async function listenCandidates(callId, remoteUid){
     );
 
   candidateListener =
-    onValue(
+    onChildAdded(
       candidatesRef,
       async snapshot => {
 
-        const data =
-          snapshot.val() || {};
+        const key =
+          snapshot.key;
 
-        for(
-          const candidate of Object.values(data)
-        ){
+        if(
+          processedCandidates
+            .has(key)
+        )
+          return;
 
-          try{
+        processedCandidates
+          .add(key);
 
-            const iceCandidate =
-              new RTCIceCandidate(candidate);
+        const candidateData =
+          snapshot.val();
 
-            if(
-              peerConnection &&
-              remoteDescriptionSet
-            ){
+        if(!candidateData)
+          return;
 
-              await peerConnection
-                .addIceCandidate(
-                  iceCandidate
-                );
+        try{
 
-            }else{
+          const iceCandidate =
+            new RTCIceCandidate(
+              candidateData
+            );
 
-              remoteCandidateQueue.push(
+          if(
+            peerConnection &&
+            remoteDescriptionSet
+          ){
+
+            await peerConnection
+              .addIceCandidate(
                 iceCandidate
               );
 
-            }
+          }else{
 
-          }catch(e){}
+            remoteCandidateQueue
+              .push(
+                iceCandidate
+              );
+
+          }
+
+        }catch(error){
+
+          console.error(
+            "ICE candidate error:",
+            error
+          );
 
         }
 
@@ -1959,36 +2586,75 @@ async function listenCandidates(callId, remoteUid){
 }
 
 
+/* =========================================================
+   PROCESS QUEUED ICE
+========================================================= */
+
 async function processCandidateQueue(){
 
   if(!peerConnection)
     return;
 
+  const queue =
+    [...remoteCandidateQueue];
+
+  remoteCandidateQueue =
+    [];
+
   for(
-    const candidate of remoteCandidateQueue
+    const candidate of queue
   ){
 
     try{
 
       await peerConnection
-        .addIceCandidate(candidate);
+        .addIceCandidate(
+          candidate
+        );
 
-    }catch(e){}
+    }catch(error){
+
+      console.error(
+        "Queued ICE error:",
+        error
+      );
+
+    }
 
   }
-
-  remoteCandidateQueue = [];
 
 }
 
 
-window.startCall = async function(type){
+/* =========================================================
+   START CALL
+========================================================= */
+
+window.startCall =
+async function(type){
 
   if(!selectedUser){
 
-    toast("Pilih pengguna terlebih dahulu.");
+    toast(
+      "Pilih pengguna terlebih dahulu."
+    );
 
     return;
+
+  }
+
+  if(
+    currentCall ||
+    peerConnection ||
+    localStream
+  ){
+
+    toast(
+      "Anda sedang berada dalam panggilan."
+    );
+
+    return;
+
   }
 
   if(
@@ -2001,19 +2667,29 @@ window.startCall = async function(type){
     );
 
     return;
+
   }
 
-  callType = type;
+  callType =
+    type;
+
+  isEndingCall =
+    false;
 
   try{
 
-    await prepareLocalMedia(type);
+    await prepareLocalMedia(
+      type
+    );
 
     createPeerConnection();
 
     const callRef =
       push(
-        ref(db,"calls")
+        ref(
+          db,
+          "calls"
+        )
       );
 
     currentCall =
@@ -2022,56 +2698,109 @@ window.startCall = async function(type){
     await set(
       callRef,
       {
-        callerId:currentUser.uid,
-        receiverId:selectedUser.uid,
+        callerId:
+          currentUser.uid,
+
+        receiverId:
+          selectedUser.uid,
+
         type:type,
-        status:"ringing",
-        createdAt:Date.now()
+
+        status:
+          "ringing",
+
+        createdAt:
+          Date.now()
       }
     );
 
-    const offer =
-      await peerConnection.createOffer();
 
-    await peerConnection.setLocalDescription(
-      offer
-    );
+    const offer =
+      await peerConnection
+        .createOffer({
+          offerToReceiveAudio:true,
+          offerToReceiveVideo:
+            type === "video"
+        });
+
+
+    await peerConnection
+      .setLocalDescription(
+        offer
+      );
+
 
     await update(
       callRef,
       {
         offer:{
-          type:offer.type,
-          sdp:offer.sdp
+          type:
+            offer.type,
+
+          sdp:
+            offer.sdp
         }
       }
     );
 
+
     showCallScreen(
       type,
-      "Memanggil " + selectedUser.name
+      "Memanggil " +
+      (
+        selectedUser.name ||
+        "Pengguna"
+      )
     );
+
 
     listenCallAsCaller(
       currentCall
     );
+
 
     listenCandidates(
       currentCall,
       selectedUser.uid
     );
 
+
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "START CALL:",
+      error
+    );
+
+    const message =
+      error.name +
+      " - " +
+      error.message;
+
+    if(currentCall){
+
+      try{
+
+        await update(
+          ref(
+            db,
+            "calls/" +
+            currentCall
+          ),
+          {
+            status:"ended"
+          }
+        );
+
+      }catch(e){}
+
+    }
 
     cleanupCall();
 
     toast(
       "Panggilan gagal: " +
-      error.name +
-      " - " +
-      error.message
+      message
     );
 
   }
@@ -2079,16 +2808,27 @@ window.startCall = async function(type){
 };
 
 
-function listenCallAsCaller(callId){
+/* =========================================================
+   LISTEN CALL AS CALLER
+========================================================= */
 
-  if(callListener)
+function listenCallAsCaller(
+  callId
+){
+
+  if(callListener){
+
     callListener();
+    callListener = null;
+
+  }
 
   callListener =
     onValue(
       ref(
         db,
-        "calls/" + callId
+        "calls/" +
+        callId
       ),
       async snapshot => {
 
@@ -2097,6 +2837,9 @@ function listenCallAsCaller(callId){
 
         if(!data)
           return;
+
+
+        /* ANSWER */
 
         if(
           data.answer &&
@@ -2113,29 +2856,64 @@ function listenCallAsCaller(callId){
                 )
               );
 
-            remoteDescriptionSet = true;
+            remoteDescriptionSet =
+              true;
 
             await processCandidateQueue();
 
+            setCallTitle(
+              "Menghubungkan...",
+              false
+            );
+
           }catch(error){
 
-            console.error(error);
+            console.error(
+              "ANSWER ERROR:",
+              error
+            );
 
           }
 
         }
 
-        if(data.status === "rejected"){
 
-          toast("Panggilan ditolak.");
+        /* REJECTED */
+
+        if(
+          data.status ===
+          "rejected"
+        ){
+
+          toast(
+            "Panggilan ditolak."
+          );
 
           cleanupCall();
+
+          return;
 
         }
 
-        if(data.status === "ended"){
+
+        /* ENDED */
+
+        if(
+          data.status ===
+          "ended"
+        ){
+
+          if(!isEndingCall){
+
+            toast(
+              "Panggilan diakhiri."
+            );
+
+          }
 
           cleanupCall();
+
+          return;
 
         }
 
@@ -2145,76 +2923,137 @@ function listenCallAsCaller(callId){
 }
 
 
+/* =========================================================
+   INCOMING CALL LISTENER
+========================================================= */
+
 function listenIncomingCalls(){
 
-  onValue(
-    ref(db,"calls"),
-    snapshot => {
+  if(incomingCallsListener){
 
-      const calls =
-        snapshot.val() || {};
+    incomingCallsListener();
+    incomingCallsListener =
+      null;
 
-      const entries =
-        Object.entries(calls);
+  }
 
-      const incoming =
-        entries.find(
-          ([id,call]) =>
-            call &&
-            call.receiverId === currentUser.uid &&
-            call.status === "ringing"
-        );
+  if(!currentUser)
+    return;
 
-      if(!incoming)
-        return;
+  incomingCallsListener =
+    onValue(
+      ref(db,"calls"),
+      snapshot => {
 
-      const [id,data] =
-        incoming;
+        if(!currentUser)
+          return;
 
-      if(
-        currentCall === id ||
-        incomingCallData
-      )
-        return;
+        const calls =
+          snapshot.val() || {};
 
-      incomingCallData = {
-        id:id,
-        ...data
-      };
+        const entries =
+          Object.entries(calls);
 
-      pendingCallId = id;
+        const incoming =
+          entries.find(
+            ([id,call]) =>
+              call &&
+              call.receiverId ===
+                currentUser.uid &&
+              call.status ===
+                "ringing" &&
+              call.offer
+          );
 
-      document
-        .getElementById("incomingName")
-        .textContent =
-          getUserName(data.callerId);
 
-      document
-        .getElementById("incomingType")
-        .textContent =
-          data.type === "video"
-          ? "📹 Panggilan video masuk"
-          : "📞 Panggilan suara masuk";
+        if(!incoming){
 
-      document
-        .getElementById("incomingCall")
-        .classList.remove("hidden");
+          return;
 
-    }
+        }
+
+
+        const [id,data] =
+          incoming;
+
+
+        if(
+          currentCall === id ||
+          incomingCallData
+        ){
+
+          return;
+
+        }
+
+
+        incomingCallData = {
+          id:id,
+          ...data
+        };
+
+        pendingCallId =
+          id;
+
+
+        const caller =
+          usersData[
+            data.callerId
+          ];
+
+
+        document
+          .getElementById(
+            "incomingName"
+          )
+          .textContent =
+            caller?.name ||
+            "Pengguna";
+
+
+        document
+          .getElementById(
+            "incomingType"
+          )
+          .textContent =
+            data.type === "video"
+            ? "📹 Panggilan video masuk"
+            : "📞 Panggilan suara masuk";
+
+
+        document
+          .getElementById(
+            "incomingCall"
+          )
+          .classList
+          .remove("hidden");
+
+      }
+    );
+
+}
+
+
+/* =========================================================
+   GET USER NAME
+========================================================= */
+
+function getUserName(uid){
+
+  return (
+    usersData[uid]?.name ||
+    "Pengguna"
   );
 
 }
 
 
-function getUserName(uid){
+/* =========================================================
+   ACCEPT INCOMING
+========================================================= */
 
-  return usersData[uid]?.name ||
-    "Pengguna";
-
-}
-
-
-window.acceptIncoming = async function(){
+window.acceptIncoming =
+async function(){
 
   if(!incomingCallData)
     return;
@@ -2223,16 +3062,27 @@ window.acceptIncoming = async function(){
     incomingCallData;
 
   document
-    .getElementById("incomingCall")
-    .classList.add("hidden");
+    .getElementById(
+      "incomingCall"
+    )
+    .classList
+    .add("hidden");
 
-  incomingCallData = null;
+  incomingCallData =
+    null;
+
+  pendingCallId =
+    null;
 
   currentCall =
     call.id;
 
   callType =
     call.type;
+
+  isEndingCall =
+    false;
+
 
   try{
 
@@ -2242,6 +3092,7 @@ window.acceptIncoming = async function(){
 
     createPeerConnection();
 
+
     await peerConnection
       .setRemoteDescription(
         new RTCSessionDescription(
@@ -2249,44 +3100,87 @@ window.acceptIncoming = async function(){
         )
       );
 
-    remoteDescriptionSet = true;
+    remoteDescriptionSet =
+      true;
 
-    await processCandidateQueue();
 
     listenCandidates(
       call.id,
       call.callerId
     );
 
+
+    await processCandidateQueue();
+
+
     const answer =
       await peerConnection
-        .createAnswer();
+        .createAnswer({
+          offerToReceiveAudio:true,
+          offerToReceiveVideo:
+            call.type === "video"
+        });
+
 
     await peerConnection
-      .setLocalDescription(answer);
+      .setLocalDescription(
+        answer
+      );
+
 
     await update(
       ref(
         db,
-        "calls/" + call.id
+        "calls/" +
+        call.id
       ),
       {
         answer:{
-          type:answer.type,
-          sdp:answer.sdp
+          type:
+            answer.type,
+
+          sdp:
+            answer.sdp
         },
-        status:"accepted"
+
+        status:
+          "accepted"
       }
     );
 
+
     showCallScreen(
       call.type,
-      "Terhubung"
+      "Menghubungkan..."
     );
+
+
+    listenCallAsReceiver(
+      call.id
+    );
+
 
   }catch(error){
 
-    console.error(error);
+    console.error(
+      "ACCEPT CALL:",
+      error
+    );
+
+    try{
+
+      await update(
+        ref(
+          db,
+          "calls/" +
+          call.id
+        ),
+        {
+          status:"ended"
+        }
+      );
+
+    }catch(e){}
 
     cleanupCall();
 
@@ -2302,50 +3196,171 @@ window.acceptIncoming = async function(){
 };
 
 
-window.rejectIncoming = async function(){
+/* =========================================================
+   LISTEN CALL AS RECEIVER
+========================================================= */
 
-  if(!pendingCallId)
+function listenCallAsReceiver(
+  callId
+){
+
+  if(callListener){
+
+    callListener();
+    callListener = null;
+
+  }
+
+  callListener =
+    onValue(
+      ref(
+        db,
+        "calls/" +
+        callId
+      ),
+      snapshot => {
+
+        const data =
+          snapshot.val();
+
+        if(!data)
+          return;
+
+        if(
+          data.status ===
+          "ended"
+        ){
+
+          if(!isEndingCall){
+
+            toast(
+              "Panggilan diakhiri."
+            );
+
+          }
+
+          cleanupCall();
+
+        }
+
+      }
+    );
+
+}
+
+
+/* =========================================================
+   REJECT INCOMING
+========================================================= */
+
+window.rejectIncoming =
+async function(){
+
+  const callId =
+    pendingCallId ||
+    incomingCallData?.id;
+
+  if(!callId){
+
+    document
+      .getElementById(
+        "incomingCall"
+      )
+      .classList
+      .add("hidden");
+
+    incomingCallData =
+      null;
+
     return;
 
-  await update(
-    ref(
-      db,
-      "calls/" + pendingCallId
-    ),
-    {
-      status:"rejected"
-    }
-  );
+  }
+
+
+  try{
+
+    await update(
+      ref(
+        db,
+        "calls/" +
+        callId
+      ),
+      {
+        status:"rejected"
+      }
+    );
+
+  }catch(error){
+
+    console.error(error);
+
+  }
+
 
   document
-    .getElementById("incomingCall")
-    .classList.add("hidden");
+    .getElementById(
+      "incomingCall"
+    )
+    .classList
+    .add("hidden");
 
-  incomingCallData = null;
-  pendingCallId = null;
+  incomingCallData =
+    null;
+
+  pendingCallId =
+    null;
 
 };
 
 
-function showCallScreen(type,title){
+/* =========================================================
+   SHOW CALL SCREEN
+========================================================= */
+
+function showCallScreen(
+  type,
+  title
+){
 
   const modal =
-    document.getElementById("callModal");
+    document.getElementById(
+      "callModal"
+    );
 
-  modal.classList.remove("hidden");
+  modal
+    .classList
+    .remove("hidden");
+
+
+  setCallTitle(
+    title,
+    false
+  );
+
 
   document
-    .getElementById("callTitle")
-    .textContent = title;
+    .getElementById(
+      "callTimer"
+    )
+    .textContent =
+      "00:00";
+
 
   const remoteVideo =
-    document.getElementById("remoteVideo");
+    document.getElementById(
+      "remoteVideo"
+    );
 
   const localVideo =
-    document.getElementById("localVideo");
+    document.getElementById(
+      "localVideo"
+    );
 
   const avatar =
-    document.getElementById("audioAvatar");
+    document.getElementById(
+      "audioAvatar"
+    );
+
 
   if(type === "video"){
 
@@ -2374,74 +3389,141 @@ function showCallScreen(type,title){
 }
 
 
-window.toggleMute = function(){
+/* =========================================================
+   MUTE
+========================================================= */
+
+window.toggleMute =
+function(){
 
   if(!localStream)
     return;
 
   const audio =
-    localStream.getAudioTracks();
+    localStream
+      .getAudioTracks();
 
-  if(!audio.length)
+  if(!audio.length){
+
+    toast(
+      "Mikrofon tidak tersedia."
+    );
+
     return;
+
+  }
+
 
   const enabled =
     audio[0].enabled;
 
+
   audio.forEach(
-    track =>
-      track.enabled = !enabled
+    track => {
+
+      track.enabled =
+        !enabled;
+
+    }
   );
 
+
   document
-    .getElementById("muteButton")
+    .getElementById(
+      "muteButton"
+    )
     .textContent =
-      enabled ? "🔇" : "🎤";
+      enabled
+      ? "🔇"
+      : "🎤";
 
 };
 
 
-window.toggleCamera = function(){
+/* =========================================================
+   TOGGLE CAMERA
+========================================================= */
+
+window.toggleCamera =
+function(){
 
   if(!localStream)
     return;
 
   const video =
-    localStream.getVideoTracks();
+    localStream
+      .getVideoTracks();
 
-  if(!video.length)
+  if(!video.length){
+
+    toast(
+      "Kamera hanya tersedia saat video call."
+    );
+
     return;
+
+  }
+
 
   const enabled =
     video[0].enabled;
 
+
   video.forEach(
-    track =>
-      track.enabled = !enabled
+    track => {
+
+      track.enabled =
+        !enabled;
+
+    }
   );
 
+
   document
-    .getElementById("cameraButton")
+    .getElementById(
+      "cameraButton"
+    )
     .textContent =
-      enabled ? "🚫" : "📷";
+      enabled
+      ? "🚫"
+      : "📷";
 
 };
 
 
-window.switchCamera = async function(){
+/* =========================================================
+   SWITCH CAMERA
+========================================================= */
 
-  if(!localStream)
+window.switchCamera =
+async function(){
+
+  if(!localStream){
+
+    toast(
+      "Tidak ada panggilan aktif."
+    );
+
     return;
 
+  }
+
+
   const videoTracks =
-    localStream.getVideoTracks();
+    localStream
+      .getVideoTracks();
+
 
   if(!videoTracks.length){
 
-    toast("Ganti kamera hanya tersedia saat video call.");
+    toast(
+      "Ganti kamera hanya tersedia saat video call."
+    );
 
     return;
+
   }
+
 
   const currentTrack =
     videoTracks[0];
@@ -2449,26 +3531,70 @@ window.switchCamera = async function(){
   const settings =
     currentTrack.getSettings();
 
+
   const currentFacing =
-    settings.facingMode === "environment"
+    settings.facingMode ===
+      "environment"
     ? "user"
     : "environment";
 
+
   try{
 
-    const newStream =
-      await navigator.mediaDevices
-        .getUserMedia({
-          audio:false,
-          video:{
-            facingMode:{
-              exact:currentFacing
+    let newStream;
+
+
+    try{
+
+      newStream =
+        await navigator
+          .mediaDevices
+          .getUserMedia({
+            audio:false,
+            video:{
+              facingMode:{
+                exact:
+                  currentFacing
+              }
             }
-          }
-        });
+          });
+
+    }catch(firstError){
+
+      /*
+       * Beberapa HP/browser tidak
+       * menerima facingMode exact.
+       * Coba kembali dengan facingMode
+       * biasa.
+       */
+
+      newStream =
+        await navigator
+          .mediaDevices
+          .getUserMedia({
+            audio:false,
+            video:{
+              facingMode:
+                currentFacing
+            }
+          });
+
+    }
+
 
     const newTrack =
-      newStream.getVideoTracks()[0];
+      newStream
+        .getVideoTracks()[0];
+
+
+    if(!newTrack){
+
+      throw new Error(
+        "Kamera baru tidak tersedia."
+      );
+
+    }
+
 
     const sender =
       peerConnection
@@ -2476,33 +3602,58 @@ window.switchCamera = async function(){
         .find(
           s =>
             s.track &&
-            s.track.kind === "video"
+            s.track.kind ===
+              "video"
         );
+
 
     if(sender){
 
-      await sender.replaceTrack(
-        newTrack
-      );
+      await sender
+        .replaceTrack(
+          newTrack
+        );
 
     }
 
+
+    const wasEnabled =
+      currentTrack.enabled;
+
+
     currentTrack.stop();
 
-    localStream.removeTrack(
-      currentTrack
-    );
 
-    localStream.addTrack(
-      newTrack
-    );
+    localStream
+      .removeTrack(
+        currentTrack
+      );
+
+
+    newTrack.enabled =
+      wasEnabled;
+
+
+    localStream
+      .addTrack(
+        newTrack
+      );
+
 
     document
-      .getElementById("localVideo")
+      .getElementById(
+        "localVideo"
+      )
       .srcObject =
-        localStream;
+      localStream;
+
 
   }catch(error){
+
+    console.error(
+      "SWITCH CAMERA:",
+      error
+    );
 
     toast(
       "Tidak dapat mengganti kamera: " +
@@ -2514,97 +3665,313 @@ window.switchCamera = async function(){
 };
 
 
-window.endCall = async function(){
+/* =========================================================
+   END CALL
+========================================================= */
 
-  if(currentCall){
+window.endCall =
+async function(){
+
+  if(isEndingCall)
+    return;
+
+  isEndingCall =
+    true;
+
+
+  const callId =
+    currentCall;
+
+
+  if(callId){
 
     try{
 
       await update(
         ref(
           db,
-          "calls/" + currentCall
+          "calls/" +
+          callId
         ),
         {
           status:"ended"
         }
       );
 
-    }catch(e){}
+    }catch(error){
+
+      console.error(
+        error
+      );
+
+    }
 
   }
+
 
   cleanupCall();
 
 };
 
 
+/* =========================================================
+   CLEANUP
+========================================================= */
+
 function cleanupCall(){
+
+  stopCallTimer();
+
 
   if(callListener){
 
-    callListener();
-    callListener = null;
+    try{
+
+      callListener();
+
+    }catch(e){}
+
+    callListener =
+      null;
 
   }
+
 
   if(candidateListener){
 
-    candidateListener();
-    candidateListener = null;
+    try{
+
+      candidateListener();
+
+    }catch(e){}
+
+    candidateListener =
+      null;
 
   }
+
 
   if(peerConnection){
 
     try{
+
+      peerConnection.ontrack =
+        null;
+
+      peerConnection.onicecandidate =
+        null;
+
       peerConnection.close();
+
     }catch(e){}
 
-    peerConnection = null;
+    peerConnection =
+      null;
 
   }
+
 
   if(localStream){
 
     localStream
       .getTracks()
       .forEach(
-        track => track.stop()
+        track => {
+
+          try{
+
+            track.stop();
+
+          }catch(e){}
+
+        }
       );
 
-    localStream = null;
+    localStream =
+      null;
 
   }
 
-  remoteStream = null;
 
-  currentCall = null;
+  if(remoteStream){
 
-  pendingCallId = null;
+    remoteStream
+      .getTracks()
+      .forEach(
+        track => {
 
-  remoteCandidateQueue = [];
+          try{
 
-  remoteDescriptionSet = false;
+            track.stop();
+
+          }catch(e){}
+
+        }
+      );
+
+  }
+
+
+  remoteStream =
+    null;
+
+  currentCall =
+    null;
+
+  pendingCallId =
+    null;
+
+  remoteCandidateQueue =
+    [];
+
+  processedCandidates =
+    new Set();
+
+  remoteDescriptionSet =
+    false;
+
+  incomingCallData =
+    null;
+
+
+  const localVideo =
+    document.getElementById(
+      "localVideo"
+    );
+
+  const remoteVideo =
+    document.getElementById(
+      "remoteVideo"
+    );
+
+
+  localVideo.srcObject =
+    null;
+
+  remoteVideo.srcObject =
+    null;
+
 
   document
-    .getElementById("localVideo")
-    .srcObject = null;
+    .getElementById(
+      "callModal"
+    )
+    .classList
+    .add("hidden");
+
 
   document
-    .getElementById("remoteVideo")
-    .srcObject = null;
+    .getElementById(
+      "incomingCall"
+    )
+    .classList
+    .add("hidden");
+
 
   document
-    .getElementById("callModal")
-    .classList.add("hidden");
+    .getElementById(
+      "muteButton"
+    )
+    .textContent =
+      "🎤";
+
+
+  document
+    .getElementById(
+      "cameraButton"
+    )
+    .textContent =
+      "📷";
+
+
+  isEndingCall =
+    false;
 
 }
 
 
-listenIncomingCalls();
+/* =========================================================
+   CLEANUP OLD RINGING CALLS
+========================================================= */
+
+async function cleanupOwnOldCalls(){
+
+  if(!currentUser)
+    return;
+
+  try{
+
+    const snapshot =
+      await get(
+        ref(db,"calls")
+      );
+
+    const calls =
+      snapshot.val() || {};
+
+    const entries =
+      Object.entries(calls);
+
+    for(
+      const [id,call] of entries
+    ){
+
+      if(
+        !call ||
+        call.status !== "ringing"
+      )
+        continue;
+
+
+      if(
+        call.callerId ===
+          currentUser.uid ||
+        call.receiverId ===
+          currentUser.uid
+      ){
+
+        const age =
+          Date.now() -
+          (call.createdAt || 0);
+
+
+        /*
+         * Panggilan ringing lebih
+         * dari 2 menit dianggap
+         * sudah tidak aktif.
+         */
+
+        if(age > 120000){
+
+          await update(
+            ref(
+              db,
+              "calls/" +
+              id
+            ),
+            {
+              status:"ended"
+            }
+          );
+
+        }
+
+      }
+
+    }
+
+  }catch(error){
+
+    console.error(
+      "CLEAN OLD CALLS:",
+      error
+    );
+
+  }
+
+}
 
 </script>
 
 </body>
-  </html> 
+</html>
